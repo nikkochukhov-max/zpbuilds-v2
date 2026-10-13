@@ -1,0 +1,440 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  background: #050505;
+}
+
+body {
+  background: #050505;
+  color: #eaeaea;
+  font-family: var(--font-mono);
+  min-height: 100vh;
+}
+
+::selection {
+  background: #ffffff;
+  color: #050505;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222;
+}
+
+/* ── CRT scanlines overlay ── */
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* ── Vignette ── */
+.vignette-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 49;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+/* ── Boot screen ── */
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  background: #050505;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.boot-screen.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  pointer-events: none;
+}
+
+.boot-text {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #eaeaea;
+  white-space: pre-wrap;
+}
+
+.boot-line {
+  opacity: 0;
+  animation: bootLineAppear 0.05s ease-out forwards;
+}
+
+@keyframes bootLineAppear {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Terminal buttons ── */
+.btn-terminal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #eaeaea;
+  color: #eaeaea;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-decoration: none;
+}
+
+.btn-terminal:hover {
+  background: #ffffff;
+  color: #050505;
+}
+
+/* ── Section heading ── */
+.section-heading {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 1.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ── Service row ── */
+.service-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+  color: #777;
+  transition: color 0.15s;
+}
+
+.service-row:hover {
+  color: #ffffff;
+}
+
+.service-row:hover .service-arrow {
+  color: #ffffff;
+}
+
+.service-arrow {
+  color: #777;
+  transition: color 0.15s;
+}
+
+.service-dots {
+  flex: 1;
+  color: #777;
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+
+/* ── Typing caret ── */
+.typing-caret {
+  animation: caretBlink 0.8s steps(1) infinite;
+}
+
+@keyframes caretBlink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+/* ── Glitch logo ── */
+.glitch-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-wrapper pre {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+
+.glitch-wrapper .glitch-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-size: 13px;
+  line-height: 1.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glitch-wrapper .glitch-before {
+  color: #ff003c;
+  animation: glitchAnim1 3s infinite steps(1);
+}
+
+.glitch-wrapper .glitch-after {
+  color: #00fff9;
+  animation: glitchAnim2 3.7s infinite steps(1);
+}
+
+@keyframes glitchAnim1 {
+  0%, 91%, 100% {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    transform: translate(0);
+  }
+  92% {
+    clip-path: inset(10% 0 60% 0);
+    opacity: 1;
+    transform: translate(-3px, 0);
+  }
+  94% {
+    clip-path: inset(50% 0 20% 0);
+    opacity: 1;
+    transform: translate(-2px, 0);
+  }
+  96% {
+    clip-path: inset(80% 0 5% 0);
+    opacity: 1;
+    transform: translate(-3px, 0);
+  }
+  98% {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    transform: translate(0);
+  }
+}
+
+@keyframes glitchAnim2 {
+  0%, 88%, 100% {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    transform: translate(0);
+  }
+  89% {
+    clip-path: inset(60% 0 10% 0);
+    opacity: 1;
+    transform: translate(3px, 0);
+  }
+  91% {
+    clip-path: inset(20% 0 55% 0);
+    opacity: 1;
+    transform: translate(2px, 0);
+  }
+  93% {
+    clip-path: inset(70% 0 5% 0);
+    opacity: 1;
+    transform: translate(3px, 0);
+  }
+  95% {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    transform: translate(0);
+  }
+}
+
+/* ASCII logo responsive */
+.ascii-logo {
+  margin: 0;
+  font-size: 6px;
+  line-height: 1.2;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+  overflow-x: auto;
+  max-width: 100%;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  letter-spacing: 0;
+  word-spacing: 0;
+  white-space: pre;
+}
+
+.logo-mobile {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .ascii-logo {
+    font-size: 13px;
+  }
+
+  .logo-mobile {
+    display: none !important;
+  }
+
+  .logo-desktop {
+    display: block;
+  }
+}
+
+@media (max-width: 639px) {
+  .logo-desktop {
+    display: none !important;
+  }
+
+  .logo-mobile {
+    display: flex;
+  }
+}
+
+/* ── Logo PNG glitch ── */
+.logo-glitch { position: relative; }
+.logo-base {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-user-drag: none;
+}
+.logo-tint {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: var(--img);
+  mask-image: var(--img);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  opacity: 0;
+  pointer-events: none;
+}
+.logo-tint.red  { background-color: #ff003c; animation: glitchA 6s infinite steps(1); }
+.logo-tint.cyan { background-color: #00fff9; animation: glitchB 6s infinite steps(1); }
+
+@keyframes glitchA {
+  0%, 91%, 100% { opacity: 0; transform: translate(0); }
+  92% { opacity: 1; transform: translate(-3px, 0); clip-path: inset(10% 0 60% 0); }
+  94% { opacity: 1; transform: translate(-2px, 0); clip-path: inset(50% 0 20% 0); }
+  96% { opacity: 1; transform: translate(-3px, 0); clip-path: inset(80% 0 5% 0); }
+  98% { opacity: 0; transform: translate(0); }
+}
+@keyframes glitchB {
+  0%, 88%, 100% { opacity: 0; transform: translate(0); }
+  89% { opacity: 1; transform: translate(3px, 0); clip-path: inset(60% 0 10% 0); }
+  91% { opacity: 1; transform: translate(2px, 0); clip-path: inset(20% 0 55% 0); }
+  93% { opacity: 1; transform: translate(3px, 0); clip-path: inset(70% 0 5% 0); }
+  95% { opacity: 0; transform: translate(0); }
+}
+
+/* ── Crack click transition ── */
+.shake {
+  animation: screenShake 0.35s ease-in-out;
+}
+
+.crack-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow: hidden;
+  cursor: wait;
+  background: rgba(0, 0, 0, 0.55);
+  pointer-events: auto;
+}
+
+.crack-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.crack-path {
+  fill: none;
+  stroke: #eaeaea;
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 3px rgba(234, 234, 234, 0.85));
+  animation: crackDraw 0.5s ease-out forwards;
+}
+
+.crack-path--branch {
+  stroke-width: 1px;
+}
+
+.crack-impact {
+  fill: none;
+  stroke: #eaeaea;
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 4px rgba(234, 234, 234, 0.95));
+  animation: crackImpact 0.45s ease-out forwards;
+  transform-origin: center;
+}
+
+@keyframes crackDraw {
+  from {
+    stroke-dashoffset: var(--crack-length);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes crackImpact {
+  from {
+    opacity: 1;
+    r: 3px;
+  }
+  to {
+    opacity: 0;
+    r: 26px;
+  }
+}
+
+@keyframes screenShake {
+  0%, 100% { transform: translate(0, 0); }
+  15% { transform: translate(-4px, 3px); }
+  30% { transform: translate(4px, -3px); }
+  45% { transform: translate(-5px, -2px); }
+  60% { transform: translate(5px, 2px); }
+  75% { transform: translate(-3px, 1px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crack-path,
+  .crack-impact,
+  .shake {
+    animation: none;
+  }
+
+  .crack-path {
+    stroke-dashoffset: 0 !important;
+  }
+
+  .crack-impact {
+    opacity: 0;
+    r: 26px;
+  }
+}
